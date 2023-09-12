@@ -8,6 +8,7 @@ namespace Extcode\Cart\Utility;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\FeVariant;
@@ -262,8 +263,8 @@ class OrderUtility
      * Save Order
      *
      * @param array $pluginSettings TypoScript Plugin Settings
-     * @param Cart $cart
-     * @param Item $orderItem
+     * @param Cart  $cart
+     * @param Item  $orderItem
      */
     public function saveOrderItem(
         array $pluginSettings,
@@ -286,7 +287,7 @@ class OrderUtility
 
         $orderItem->setPid($this->storagePid);
 
-        $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+        $feUserId = (int)($GLOBALS['TSFE']->fe_user->user['uid'] ?? 0);
         if ($feUserId) {
             $frontendUserRepository = GeneralUtility::makeInstance(
                 FrontendUserRepository::class
@@ -530,7 +531,7 @@ class OrderUtility
 
     /**
      * @param \Extcode\Cart\Domain\Model\Order\Product $product
-     * @param FeVariant $feVariant
+     * @param FeVariant                                $feVariant
      */
     protected function addFeVariants(
         \Extcode\Cart\Domain\Model\Order\Product $product,
@@ -597,7 +598,7 @@ class OrderUtility
      * Adds Variants of a Variant to Order Item
      *
      * @param BeVariant $variant
-     * @param int $level Level
+     * @param int       $level Level
      */
     protected function addVariantsOfVariant(BeVariant $variant, $level)
     {
@@ -620,7 +621,7 @@ class OrderUtility
      * Adds a Variant to Order Item
      *
      * @param BeVariant $variant
-     * @param int $level Level
+     * @param int       $level Level
      */
     protected function addBeVariant(BeVariant $variant, $level)
     {

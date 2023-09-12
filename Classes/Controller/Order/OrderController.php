@@ -66,7 +66,7 @@ class OrderController extends ActionController
     {
         $this->view->assign('searchArguments', $this->searchArguments);
 
-        $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+        $feUser = (int)($GLOBALS['TSFE']->fe_user->user['uid'] ?? 0);
         $orderItems = $this->itemRepository->findByFeUser($feUser);
 
         $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
@@ -98,7 +98,7 @@ class OrderController extends ActionController
      */
     public function showAction(Item $orderItem)
     {
-        $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+        $feUser = (int)($GLOBALS['TSFE']->fe_user->user['uid'] ?? 0);
         if ($orderItem->getFeUser()->getUid() !== $feUser) {
             $this->addFlashMessage(
                 'Access denied.',

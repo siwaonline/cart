@@ -459,12 +459,18 @@ class Cart
         if ($this->payment) {
             $paymentTaxes = $this->payment->getTaxes();
             foreach ($paymentTaxes as $paymentTax) {
+                if (!isset($taxes[$paymentTax['taxClassId']])) {
+                    $taxes[$paymentTax['taxClassId']] = 0;
+                }
                 $taxes[$paymentTax['taxClassId']] += $paymentTax['tax'];
             }
         }
         if ($this->shipping) {
             $shippingTaxes = $this->shipping->getTaxes();
             foreach ($shippingTaxes as $shippingTax) {
+                if (!isset($taxes[$shippingTax['taxClassId']])) {
+                    $taxes[$shippingTax['taxClassId']] = 0;
+                }
                 $taxes[$shippingTax['taxClassId']] += $shippingTax['tax'];
             }
         }
@@ -472,6 +478,9 @@ class Cart
             foreach ($this->specials as $special) {
                 $specialTaxes = $special->getTaxes();
                 foreach ($specialTaxes as $specialTax) {
+                    if (!isset($taxes[$specialTax['taxClassId']])) {
+                        $taxes[$specialTax['taxClassId']] = 0;
+                    }
                     $taxes[$specialTax['taxClassId']] += $specialTax['tax'];
                 }
             }

@@ -63,7 +63,7 @@ class CartController extends ActionController
         $this->restoreSession();
         if (is_null($billingAddress)) {
             $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid']);
-            $billingAddress = unserialize($sessionData);
+            $billingAddress = unserialize($sessionData ?? '');
         } else {
             $sessionData = serialize($billingAddress);
             $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid'], $sessionData);
@@ -71,7 +71,7 @@ class CartController extends ActionController
         }
         if (is_null($shippingAddress)) {
             $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid']);
-            $shippingAddress = unserialize($sessionData);
+            $shippingAddress = unserialize($sessionData ?? '');
         } else {
             $sessionData = serialize($shippingAddress);
             $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid'], $sessionData);

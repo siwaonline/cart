@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Extcode\Cart\EventListener\Order\Finish;
 
 /*
@@ -8,6 +9,7 @@ namespace Extcode\Cart\EventListener\Order\Finish;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Order\EventInterface;
@@ -38,10 +40,10 @@ class Email
             $serviceSettings = $settings['payments']['options'][$paymentId];
         }
 
-        if (intval($serviceSettings['preventBuyerEmail']) != 1) {
+        if (intval($serviceSettings['preventBuyerEmail'] ?? 0) != 1) {
             $this->sendBuyerMail($orderItem);
         }
-        if (intval($serviceSettings['preventSellerEmail']) != 1) {
+        if (intval($serviceSettings['preventSellerEmail'] ?? 0) != 1) {
             $this->sendSellerMail($orderItem);
         }
     }
