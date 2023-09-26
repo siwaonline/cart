@@ -150,7 +150,7 @@ class OrderController extends ActionController
 
         $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
 
-        if ($this->cart->getCount() === 0) {
+        if (!$this->cart || $this->cart->getCount() === 0) {
             $this->redirect('show', 'Cart\Cart');
         }
 
